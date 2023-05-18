@@ -30,8 +30,12 @@ const localStorageValue = e => {
 };
 
 if (JSON.parse(localStorage.getItem(`feedback-form-state`))) {
-  inputForm.value = localStorageObj.emailData;
-  textareaForm.value = localStorageObj.messageData;
+  inputForm.value = JSON.parse(
+    localStorage.getItem(`feedback-form-state`)
+  ).emailData;
+  textareaForm.value = JSON.parse(
+    localStorage.getItem(`feedback-form-state`)
+  ).messageData;
 } else {
   inputForm.value = '';
   textareaForm.value = '';
