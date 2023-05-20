@@ -5,22 +5,22 @@ const eventInputLocalStorage = throttle(e => {
   const valueInputForm = inputForm.value;
   const valueTextareaForm = textareaForm.value;
   const data = {
-    emailData: valueInputForm,
-    messageData: valueTextareaForm,
+    email: valueInputForm,
+    message: valueTextareaForm,
   };
   localStorage.setItem(`feedback-form-state`, JSON.stringify(data));
 }, 1000);
 const localStorageValue = e => {
   e.preventDefault();
   try {
-    console.log(
-      `Valor del input: ${
-        JSON.parse(localStorage.getItem(`feedback-form-state`)).emailData
-      } \n Valor del textarea: ${
-        JSON.parse(localStorage.getItem(`feedback-form-state`)).messageData
-      }`
-    );
-  } catch {
+    if (
+      JSON.parse(localStorage.getItem(`feedback-form-state`)).email === '' ||
+      JSON.parse(localStorage.getItem(`feedback-form-state`)).message === ''
+    ) {
+      throw new Error();
+    }
+    console.log(localStorage.getItem(`feedback-form-state`));
+  } catch (error) {
     alert(
       'Por favor llene los espacios en blanco para poder enviar el formulario :)'
     );
@@ -32,10 +32,10 @@ const localStorageValue = e => {
 if (JSON.parse(localStorage.getItem(`feedback-form-state`))) {
   inputForm.value = JSON.parse(
     localStorage.getItem(`feedback-form-state`)
-  ).emailData;
+  ).email;
   textareaForm.value = JSON.parse(
     localStorage.getItem(`feedback-form-state`)
-  ).messageData;
+  ).message;
 } else {
   inputForm.value = '';
   textareaForm.value = '';
